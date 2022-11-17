@@ -1,0 +1,48 @@
+.login{
+   float:right;
+   background-color: bisque;
+   border-radius: 15px;
+   width: 20rem;
+   height: 1.5rem;
+    cursor: pointer;
+}
+
+.form{
+    text-align: center;
+    border-style: solid;
+    border-width: 2px;
+    padding-bottom: 30px;
+    border-color: bisque;
+    border-radius: 10px;
+    background-color: blanchedalmond;
+    width: 68%;
+}
+
+
+.form label{
+    padding-right: 20px;
+    padding-left: 5px;
+}   
+
+.form input{
+    border-radius: 15px;
+}
+
+.button{
+    float: right;
+    position: relative; left: -10px; top: 10px;
+    border-radius: 25px;
+    background-color: rgb(241, 132, 132);
+    cursor: pointer;
+}
+
+.button1{
+    text-align: center;
+    background-color: rgb(238, 169, 169);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.div{
+    padding-left: 300px;
+}

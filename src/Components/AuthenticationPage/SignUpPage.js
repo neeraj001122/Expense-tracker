@@ -28,9 +28,10 @@ const SignUpPage = () => {
           }
         );
         console.log(res);
+        localStorage.setItem('token',res.data.idToken)
         history.replace('/welcome')
       } catch (error) {
-        alert(error);
+        alert(error.response.data.error.message);
       }
     } else {
       try {
@@ -43,9 +44,10 @@ const SignUpPage = () => {
           }
         );
         console.log(res);
+        localStorage.setItem('token',res.data.idToken)
         history.replace('/welcome')
       } catch (error) {
-        alert(error);
+        alert(error.response.data.error.message);
       }
     }
   };
