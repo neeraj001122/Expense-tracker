@@ -6,7 +6,7 @@ const AuthContext =  React.createContext({
 })
 
 export const AuthContextProvider = (props) => {
-   const signUpHandler = async(obj) => {
+   const signUpHandler = async() => {
    }
  
    const loginHandler =  () => {
