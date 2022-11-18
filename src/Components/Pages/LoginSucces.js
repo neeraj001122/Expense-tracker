@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./LoginSucces.module.css";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import EmailVarify from "./EmailVarify";
 
 const LoginSucces = () => {
   const [completeProfile, SetCompleteProfile] = useState(false);
@@ -71,6 +72,9 @@ catch(error){
           <button className={classes.button1}>Update</button>
         </form>
       )}
+      </div>
+      <div>
+        <EmailVarify />
       </div>
     </div>
   );
