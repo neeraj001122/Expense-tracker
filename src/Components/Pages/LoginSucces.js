@@ -1,10 +1,14 @@
 import React from "react";
 import classes from "./LoginSucces.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
 const LoginSucces = () => {
   const [completeProfile, SetCompleteProfile] = useState(false);
+  const [propfileCompleted, setProfileCompleted] = useState(false);
+  const [nameValue, setNameValue] = useState('');
+  const [URLValue, setURLValue] = useState('')
+  let data = null;
   const enteredName = useRef();
   const enteredProfileUrl=useRef();
   const profileFormHandler = () => {
@@ -15,6 +19,23 @@ const LoginSucces = () => {
     SetCompleteProfile(false);
   };
 
+  const effectfunction = async() => {
+    if(localStorage.getItem('tokenn') !== null)
+    {
+        setProfileCompleted(true)
+            const rss = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB0rMolOd8wAWaFhPKzeVwKt8CTdmtWjcM',{
+            idToken:localStorage.getItem('token')
+        })
+        setURLValue(rss.data.users[0].photoUrl)
+        setNameValue(rss.data.users[0].displayName)
+    }
+  };
+
+  useEffect(() => {
+    effectfunction();
+  }, [])
+
+
   const submitHandler = async(event) => {
     event.preventDefault();
     try{
@@ -24,7 +45,8 @@ const LoginSucces = () => {
      photoUrl:enteredProfileUrl.current.value,
      returnSecureToken:true	
     })
-    console.log(res)
+    localStorage.setItem('tokenn',res.data.kind)
+    setProfileCompleted(true);
 }
 catch(error){
    alert(error.response.data.error.message)
@@ -34,7 +56,7 @@ catch(error){
   return (
     <div>
       <button onClick={profileFormHandler} className={classes.login}>
-        Your profile incomplete. Complete now
+        {!propfileCompleted ? 'Your profile incomplete. Complete now' : 'Your Profile is completed, enjoy new features'}
       </button>
       <h1>Welcome to expense Tracker</h1>
       <div className={classes.div}>
@@ -43,9 +65,9 @@ catch(error){
           <button className={classes.button}  onClick={cutFormHandler}>X</button>
           <h2>Contact Details</h2>
           <label>Full Name :-</label>
-          <input ref={enteredName}/>
+          <input ref={enteredName} defaultValue={nameValue}/>
           <label>Profile Photo URL :-</label>
-          <input ref={enteredProfileUrl} />
+          <input ref={enteredProfileUrl} defaultValue={URLValue} />
           <button className={classes.button1}>Update</button>
         </form>
       )}
