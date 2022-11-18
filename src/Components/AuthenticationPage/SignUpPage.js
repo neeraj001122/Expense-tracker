@@ -1,7 +1,8 @@
 import classes from "./SIgnUpPage.module.css";
 import { useRef, useState,  } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import ForgotPassword from "../Pages/ForgotPassword";
 const SignUpPage = () => {
     const history = useHistory();
   const [login, setLogin] = useState(false);
@@ -84,6 +85,7 @@ const SignUpPage = () => {
               ref={enteredConfirmPassword}
             ></input>
           )}
+          <Link to='/forgotpassword'>Forgot Password</Link>
           <div className={classes.div}>
             <button>{!login ? "Sign up" : "Login"}</button>
           </div>
