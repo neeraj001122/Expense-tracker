@@ -3,13 +3,14 @@ import classes from "./LoginSucces.module.css";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import EmailVarify from "./EmailVarify";
+import { useHistory } from "react-router-dom";
 
 const LoginSucces = () => {
+  const history = useHistory()
   const [completeProfile, SetCompleteProfile] = useState(false);
   const [propfileCompleted, setProfileCompleted] = useState(false);
   const [nameValue, setNameValue] = useState('');
   const [URLValue, setURLValue] = useState('')
-  let data = null;
   const enteredName = useRef();
   const enteredProfileUrl=useRef();
   const profileFormHandler = () => {
@@ -54,11 +55,20 @@ catch(error){
 }
   };
 
+  const logoutHandler = () => {
+    history.replace('/')
+    localStorage.removeItem('token')
+    localStorage.removeItem('tokenn')
+  }
+
   return (
     <div>
       <button onClick={profileFormHandler} className={classes.login}>
         {!propfileCompleted ? 'Your profile incomplete. Complete now' : 'Your Profile is completed, enjoy new features'}
       </button>
+      <div className={classes.buttondiv}>
+      <button onClick={logoutHandler}>Logout</button>
+      </div>
       <h1>Welcome to expense Tracker</h1>
       <div className={classes.div}>
       {completeProfile && (

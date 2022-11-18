@@ -1,4 +1,5 @@
 import axios from "axios";
+import classes from './EmailVarify.module.css'
 
 const EmailVarify = () => {
     const emailVarifyHandler = async() => {
@@ -13,7 +14,7 @@ const EmailVarify = () => {
     alert(error.response.error.message)
     }
     };
-   return <button onClick={emailVarifyHandler}>Varify Email</button>
+   return <button className={classes.email} onClick={emailVarifyHandler}>Varify Email</button>
 };
 
 export default EmailVarify;

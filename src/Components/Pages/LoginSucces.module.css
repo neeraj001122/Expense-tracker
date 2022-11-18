@@ -46,3 +46,14 @@
 .div{
     padding-left: 300px;
 }
+
+.buttondiv{
+    text-align: center;
+}
+
+.buttondiv button{
+    background-color: rgb(223, 228, 161);
+    cursor: pointer;
+    width: 10rem;
+    border-radius: 10px;
+}
