@@ -1,10 +1,9 @@
 .login{
-   float:right;
    background-color: bisque;
    border-radius: 15px;
-   width: 20rem;
    height: 1.5rem;
-    cursor: pointer;
+   cursor: pointer;
+   position: relative; left: 32rem; top: 3rem;
 }
 
 .form{
@@ -22,10 +21,13 @@
 .form label{
     padding-right: 20px;
     padding-left: 5px;
+    display: flex;
+    position: relative; left: 1rem;
 }   
 
 .form input{
     border-radius: 15px;
+    position: relative; left: 5rem; top: -1.3rem  ;
 }
 
 .button{
@@ -41,6 +43,8 @@
     background-color: rgb(238, 169, 169);
     border-radius: 10px;
     cursor: pointer;
+    display: flex;
+    position: relative; left: 10rem; top: 1rem;
 }
 
 .div{
@@ -56,4 +60,10 @@
     cursor: pointer;
     width: 10rem;
     border-radius: 10px;
+}
+.div2{
+    text-align: center;
+    background-color: azure;
+    padding: 10px;
+    margin-top: -2rem;
 }

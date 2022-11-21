@@ -1,0 +1,68 @@
+.main{
+    text-align: center;
+    justify-content: center;
+}
+
+.div{
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper{
+    width: 790px;
+    background: rgb(216, 225, 233);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 72px 55px 50px;
+}
+
+.main h2{
+    position: relative; top: -4rem;
+}
+
+.main label{
+    font-family: Poppins-Bold;
+    font-size: 25px;
+    color: #333;
+    display: flex;
+    
+    /* text-align: center; */
+    position: relative; top: -3rem;
+}
+
+.main input{
+    font-family: Poppins-Bold;
+    font-size: 25px;
+    color: #333;
+    width: 50rem;
+    position: relative; top: -3rem;
+    /* text-align: center; */
+}
+
+.main select{
+    font-family: Poppins-Bold;
+    font-size: 25px;
+    color: #333;
+    width: 50rem;
+    position: relative; top: -3rem;
+}
+
+.button{
+    width: 15rem;
+    height: 3rem;
+    background-color: darkgray;
+    border-radius: 10px ;
+    cursor: pointer;
+}
+
+.button2{
+    width: 2rem;
+    height: 2rem;
+    background-color: darkgray;
+    border-radius: 10px ;
+    cursor: pointer;
+    position: relative; left: 25rem; top: -3rem;
+}

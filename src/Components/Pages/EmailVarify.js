@@ -11,6 +11,7 @@ const EmailVarify = () => {
       console.log(res)
     }
     catch(error){
+      console.log(error)
     alert(error.response.error.message)
     }
     };

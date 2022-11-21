@@ -4,6 +4,8 @@ import SignUpPage from './Components/AuthenticationPage/SignUpPage';
 import LoginSucces from './Components/Pages/LoginSucces';
 import React from 'react';
 import ForgotPassword from './Components/Pages/ForgotPassword';
+import ExpenseForm from './Components/Expenses/ExpensesForm';
+import ExpenseList from './Components/Expenses/ExpensesList';
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
       <Switch>
       <Route path='/welcome' exact>
         <LoginSucces />
+        <ExpenseForm />
+        <ExpenseList />
       </Route>
       <Route path='/forgotpassword' exact>
       <ForgotPassword />

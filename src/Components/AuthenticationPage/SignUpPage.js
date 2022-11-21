@@ -2,7 +2,6 @@ import classes from "./SIgnUpPage.module.css";
 import { useRef, useState,  } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import ForgotPassword from "../Pages/ForgotPassword";
 const SignUpPage = () => {
     const history = useHistory();
   const [login, setLogin] = useState(false);
@@ -19,7 +18,7 @@ const SignUpPage = () => {
         alert("Password does not match, please enter again");
         return;
       }
-      try {
+      try { 
         const res = await axios.post(
           "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB0rMolOd8wAWaFhPKzeVwKt8CTdmtWjcM",
           {

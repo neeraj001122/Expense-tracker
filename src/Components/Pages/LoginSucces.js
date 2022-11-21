@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import EmailVarify from "./EmailVarify";
 import { useHistory } from "react-router-dom";
-
+import Modal from "../UI/Modal";
 const LoginSucces = () => {
   const history = useHistory()
   const [completeProfile, SetCompleteProfile] = useState(false);
@@ -63,28 +63,34 @@ catch(error){
 
   return (
     <div>
+      <div className={classes.div2}>
       <button onClick={profileFormHandler} className={classes.login}>
-        {!propfileCompleted ? 'Your profile incomplete. Complete now' : 'Your Profile is completed, enjoy new features'}
+        {!propfileCompleted ? 'Your profile is incomplete. Complete now' : 'Your Profile is completed, enjoy new features'}
       </button>
-      <div className={classes.buttondiv}>
-      <button onClick={logoutHandler}>Logout</button>
-      </div>
-      <h1>Welcome to expense Tracker</h1>
+       <h1>Welcome to expense Tracker</h1>
+       </div>
       <div className={classes.div}>
       {completeProfile && (
+        <Modal>
         <form onSubmit={submitHandler} className={classes.form}>
           <button className={classes.button}  onClick={cutFormHandler}>X</button>
           <h2>Contact Details</h2>
           <label>Full Name :-</label>
           <input ref={enteredName} defaultValue={nameValue}/>
           <label>Profile Photo URL :-</label>
-          <input ref={enteredProfileUrl} defaultValue={URLValue} />
+          <input ref={enteredProfileUrl} defaultValue={URLValue} /> 
           <button className={classes.button1}>Update</button>
+          <br />
+          <h3>Please varify Email for full access</h3>
+          <div>
+        <EmailVarify />
+      </div>
         </form>
+        </Modal>
       )}
       </div>
-      <div>
-        <EmailVarify />
+      <div className={classes.buttondiv}>
+      <button onClick={logoutHandler}>Logout</button>
       </div>
     </div>
   );
