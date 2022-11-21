@@ -4,7 +4,8 @@ import React, { useState } from "react"
 const AuthContext =  React.createContext({
        items:() => {},
        addItem: () => {},
-       getItem: () => {}
+       getItem: () => {},
+       delete: () => {}
 })
 
 export const AuthContextProvider = (props) => {
@@ -24,15 +25,27 @@ const getItemHandler = async() => {
     const newArray = [];
    for(let n of key)
    {
-      newArray.push(response.data[n])
+      const expense = response.data[n]
+      newArray.push({expense, n})   
    }
    setItem(newArray)
 };
 
+const deletItemHandler = async(id) => {
+  const res = await axios.delete(`https://expense-tracker-3ed60-default-rtdb.firebaseio.com/expenses/${id}.json`)
+  getItemHandler();
+}
+
+const editHandler = async(id) => {
+     deletItemHandler(id)
+}
+
    const AutchCtx = {
         items:item,
         addItem:addItemHandler,
-        getItem:getItemHandler
+        getItem:getItemHandler,
+        delete:deletItemHandler,
+        edit:editHandler
     }
 
     return <AuthContext.Provider value={AutchCtx}>{props.children}</AuthContext.Provider>

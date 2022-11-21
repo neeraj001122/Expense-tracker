@@ -45,3 +45,18 @@
     height: 1.5rem;
     width: 30rem;
 }
+
+.button1{
+    width: 4.5rem;
+    height: 2rem;
+    background-color: rgb(143, 245, 143);
+    position: relative; top: 2.3rem;
+    left: 3.4rem;
+    cursor: pointer;
+}
+.button2{
+    width: 4rem;
+    height: 2rem;
+    background-color: rgb(196, 102, 102);
+    cursor: pointer;
+}

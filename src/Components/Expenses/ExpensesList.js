@@ -2,7 +2,7 @@ import { useContext, useEffect} from "react";
 import AuthContext from "../../Store/AuthContext";
 import classes from './ExpenseList.module.css'
 
-const ExpenseList = () => {
+const ExpenseList = (props) => {
   const autctx = useContext(AuthContext);
   const effectFun = async() => {
      autctx.getItem();
@@ -11,15 +11,26 @@ const ExpenseList = () => {
   useEffect(() => {
     effectFun();
   }, [])
+  const deletExpenseHandler = (exp) => { 
+    autctx.delete(exp.n)
+    console.log(exp)
+  }
+ 
+  const editHandler = (exp) => {
+    props.formfill(exp)
+  }
+
   console.log(autctx.items);
   const list = autctx.items.map((item) => {
     return (
       <ul key={item.description}>
          <li>
-        <span className={classes.span1}>{item.expense.type}</span>
-        <span className={classes.span3}>{item.expense.description}</span>
-        <span className={classes.span4}>{item.expense.date}</span>
-        <span className={classes.span2}>{item.expense.amount}</span>
+        <span className={classes.span1}>{item.expense.expense.type}</span>
+        <span className={classes.span3}>{item.expense.expense.description}</span>
+        <span className={classes.span4}>{item.expense.expense.date}</span>
+        <span className={classes.span2}>{item.expense.expense.amount}</span>
+        <button className={classes.button1} onClick={editHandler.bind(this, item)}>Edit</button>
+        <button className={classes.button2} onClick={deletExpenseHandler.bind(this, item)}>Delete</button>
         </li>
       </ul>
     );

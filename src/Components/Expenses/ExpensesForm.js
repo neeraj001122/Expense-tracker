@@ -2,21 +2,23 @@ import React, { useContext } from 'react';
 import classes from './ExpensesForm.module.css'
 import { useState, useRef } from 'react';
 import AuthContext from '../../Store/AuthContext';
+import ExpenseList from './ExpensesList';
 const ExpenseForm = () => {
   const AutchCtx = useContext(AuthContext)
-  const enteredAmount = useRef();
-  const entereddescription = useRef();
-  const enteredTime = useRef();
-  const entereredType = useRef();
+  const [enteredAmount, setEnteredAmount] = useState(null);
+  const [entereddescription, setEnteredDescription] = useState(null);
+  const [enteredTime, setEnteredTime] = useState(null);
+  const [entereredType, setEnteredType] = useState(null);
  const [showForm , setShowForm] = useState(false);
 const submitFormHandler = (event) => {
   event.preventDefault();
   const obj = {
-     amount:enteredAmount.current.value,
-     description:entereddescription.current.value,
-     date:enteredTime.current.value,
-     type:entereredType.current.value,
+     amount:enteredAmount,
+     description:entereddescription,
+     date:enteredTime,
+     type:entereredType,
   }
+  console.log(enteredAmount)
   AutchCtx.addItem(obj)
 };
  const showFormHandler = () => {
@@ -25,6 +27,14 @@ const submitFormHandler = (event) => {
  const hideCartHandler = () => {
   setShowForm(false)
  };
+
+ const editHandler = (exp) => {
+    setEnteredAmount(exp.expense.expense.amount)
+    setEnteredDescription(exp.expense.expense.description)
+    setEnteredTime(exp.expense.expense.time)
+    setEnteredType(exp.expense.expense.type)
+    AutchCtx.edit(exp.n)
+ }
 
   return (<React.Fragment>
    {!showForm ? <button className={classes.button} onClick={showFormHandler}>Add Expenses</button> :
@@ -35,13 +45,13 @@ const submitFormHandler = (event) => {
       <form onSubmit={submitFormHandler}>
         <h2>Add Your Daily Expenses.</h2>
         <label>Amount</label>
-        <input required type="number" ref={enteredAmount} />
+        <input  required type="number" value={enteredAmount} onChange={(e) => setEnteredAmount(e.target.value)} />
         <label>description</label>  
-        <input type="text" ref={entereddescription}/>
+        <input id='description' type="text" value={entereddescription} onChange={(e) => setEnteredDescription(e.target.value)}/>
         <label>Time</label>  
-        <input type="date" ref={enteredTime}/>
-        <label >Choose type</label>
-        <select required ref={entereredType}>
+        <input type="date" value={enteredTime} onChange={(e) => setEnteredTime(e.target.value)}/>
+        <label id='time' >Choose type</label>
+        <select id='type' value={entereredType} required onChange={(e) => setEnteredType(e.target.value)}>
           <option>Food</option> 
           <option>Grocery</option>
           <option>Patrol</option>
@@ -52,6 +62,7 @@ const submitFormHandler = (event) => {
       </div>
       </div>
     </div>}
+    <ExpenseList formfill = {editHandler} />
     </React.Fragment>
   );
 };
