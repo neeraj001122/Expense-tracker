@@ -1,27 +1,20 @@
-import './App.css';
-import { Route, Switch } from 'react-router-dom';
-import SignUpPage from './Components/AuthenticationPage/SignUpPage';
-import LoginSucces from './Components/Pages/LoginSucces';
-import React from 'react';
-import ForgotPassword from './Components/Pages/ForgotPassword';
-import ExpenseForm from './Components/Expenses/ExpensesForm';
+import { Fragment } from 'react';
+import Auth from './components/Auth';
+import Counter from './components/Counter';
+import Header from './components/Header'
+import { useSelector } from 'react-redux';
+import UserProfile from './components/UserProfile';
+
 
 function App() {
+  const isAuth = useSelector(state => state.auth.auth)
   return (
-    <div>
-      <Switch>
-      <Route path='/welcome' exact>
-        <LoginSucces />
-        <ExpenseForm />
-      </Route>
-      <Route path='/forgotpassword' exact>
-      <ForgotPassword />
-      </Route>
-      <Route path = '/' exact>
-      <SignUpPage /> 
-      </Route>
-      </Switch> 
-    </div>
+    <Fragment>
+      <Header />
+      {!isAuth && <Auth />}
+      {isAuth && <UserProfile />}
+    <Counter />
+    </Fragment>
   );
 }
 
