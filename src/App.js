@@ -1,20 +1,14 @@
-import { Fragment } from 'react';
-import Auth from './components/Auth';
-import Counter from './components/Counter';
-import Header from './components/Header'
+import Cart from './components/Cart/Cart';
+import Layout from './components/Layout/Layout';
+import Products from './components/Shop/Products';
 import { useSelector } from 'react-redux';
-import UserProfile from './components/UserProfile';
-
-
 function App() {
-  const isAuth = useSelector(state => state.auth.auth)
+  const show = useSelector(state => state.cartShow)
   return (
-    <Fragment>
-      <Header />
-      {!isAuth && <Auth />}
-      {isAuth && <UserProfile />}
-    <Counter />
-    </Fragment>
+    <Layout>
+      {show && <Cart />}
+      <Products />
+    </Layout>
   );
 }
 
