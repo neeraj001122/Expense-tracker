@@ -2,6 +2,7 @@ import classes from './CartItem.module.css';
 import { useDispatch } from 'react-redux';
 import { cartAction } from '../../store/CartReducer';
 
+
 const CartItem = (props) => {
   const dispatch = useDispatch()
   const { title, total, price, quantity,id } = props.item;
@@ -14,6 +15,7 @@ const CartItem = (props) => {
         price,
       }))
   };
+
 
   const cartMinus = () => {
     dispatch(cartAction.removeItem(id))

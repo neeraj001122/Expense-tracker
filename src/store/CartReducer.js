@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const initialValue = { cartShow: false, quantity: 0, items: [], notify:null };
+
+const initialValue = { cartShow: false, items: [], notify:null };
 
 const cartSlice = createSlice({
   name: "Cart",
@@ -9,12 +11,9 @@ const cartSlice = createSlice({
     cartHandle(state) {
       state.cartShow = !state.cartShow;
     },
-    quantityAdder(state) {
-      state.quantity++;
-    },
-    quantityLessar(state) {
-      state.quantity--;
-      console.log(state.quantity);
+    cartReplace(state,action){
+      console.log(action.payload.data.cart)
+      state.items = action.payload.data.cart
     },
     addItem(state, action) {
       const newItem = action.payload;
@@ -52,6 +51,62 @@ const cartSlice = createSlice({
     }
   },
 });
+
+export const sendDataToCart = (cart) => {
+  return async(dispatch) => {
+    dispatch(
+      cartAction.statusHandler({
+        status: "pending",
+        title: "sending",
+        message: "sending data to the cart",
+      })
+    );
+    try {
+      const res = await axios.put(
+        "https://dummy-project-9e825-default-rtdb.firebaseio.com/cart.json",
+        {
+          cart,
+        }
+      );
+      dispatch(
+        cartAction.statusHandler({
+          status: "success",
+          title: "success",
+          message: "data sent successfully to the cart",
+        })  
+      );
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        cartAction.statusHandler({
+          status: "error",
+          title: "error",
+          message: "an error occured while sending data to the cart",
+        })
+      );
+    }
+  };
+};
+
+export const getDataFromCart = () => {
+  return async(dispatch) => {
+    try{
+  const res = await axios.get("https://dummy-project-9e825-default-rtdb.firebaseio.com/cart.json")
+  dispatch(cartAction.cartReplace(res))
+  console.log(res.data.cart)
+    }
+    catch(error){
+      console.log(error)
+      dispatch(
+        cartAction.statusHandler({
+          status: "error",
+          title: "error",
+          message: "an error occured while sending data to the cart",
+        })
+      );
+    }
+  }
+}
 
 export const cartAction = cartSlice.actions;
 

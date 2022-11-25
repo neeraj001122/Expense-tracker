@@ -5,7 +5,11 @@ import { useSelector } from 'react-redux';
 
 
 const CartButton = (props) => {
-  const quantity =  useSelector(state => state.quantity)
+  const items =  useSelector(state => state.items)
+  let quantity = 0;
+  items.forEach((item) => {
+    quantity = quantity + item.quantity
+  })
   const dispatch = useDispatch()
   const cartHandler = () => {
      dispatch(cartAction.cartHandle());
