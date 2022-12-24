@@ -4,14 +4,13 @@ import classes from './EmailVarify.module.css'
 const EmailVarify = () => {
     const emailVarifyHandler = async() => {
       try{
-      const res = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB0rMolOd8wAWaFhPKzeVwKt8CTdmtWjcM',{
+      await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB0rMolOd8wAWaFhPKzeVwKt8CTdmtWjcM',{
         requestType: "VERIFY_EMAIL",
         idToken:localStorage.getItem('token')
       })
-      console.log(res)
+      alert('Check you email, message sent succesfully')
     }
     catch(error){
-      console.log(error)
     alert(error.response.error.message)
     }
     };

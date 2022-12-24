@@ -1,30 +1,42 @@
-import { useContext, useEffect} from "react";
-import AuthContext from "../../Store/AuthContext";
 import classes from './ExpenseList.module.css'
+import { useSelector, useDispatch } from "react-redux";
+import { deleteExpense } from "../../Store/ExpenseActions";
+import { CSVLink } from 'react-csv';
+import Footer from '../Footer/Footer';
 
 const ExpenseList = (props) => {
-  const autctx = useContext(AuthContext);
-  const effectFun = async() => {
-     autctx.getItem();
-  };
   
-  useEffect(() => {
-    effectFun();
-  }, [])
+  const exp = useSelector((state) => state.data.expenses)   
+
+  const dispatch = useDispatch();
+  let arr = [];
+  exp.forEach(element => {
+    arr.push(element.expense)
+  });
+
+  
+  const Headers = [
+    {lable:'Amount', key:'expense.amount'},
+    {lable:'Date', key:'expense.date'},
+    {lable:'Description', key:'expense.description'},
+    {lable:'Type', key:'expense.type'},
+  ];                
+
   const deletExpenseHandler = (exp) => { 
-    autctx.delete(exp.n)
-    console.log(exp)
+      dispatch(deleteExpense(exp.n))
   }
  
   const editHandler = (exp) => {
     props.formfill(exp)
   }
 
-  console.log(autctx.items);
-  const list = autctx.items.map((item) => {
+ const premiume = localStorage.getItem('premium')
+
+  const list = exp.map((item) => {
     return (
-      <ul key={item.description}>
-         <li>
+      <div key={Math.random()} className={classes.modal}>
+      <ul>
+         <li className={classes.font}>
         <span className={classes.span1}>{item.expense.expense.type}</span>
         <span className={classes.span3}>{item.expense.expense.description}</span>
         <span className={classes.span4}>{item.expense.expense.date}</span>
@@ -33,12 +45,15 @@ const ExpenseList = (props) => {
         <button className={classes.button2} onClick={deletExpenseHandler.bind(this, item)}>Delete</button>
         </li>
       </ul>
+      </div>
     );
   });
   return <div className={classes.box}>
    <h1>All Expenses</h1>
    <hr />
    {list}
+   {premiume && <CSVLink headers={Headers}  filename='Expenses.csv' data={arr}>Download your expenses</CSVLink>}
+   <Footer />
    </div>;
 };
 

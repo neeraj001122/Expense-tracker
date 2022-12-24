@@ -1,0 +1,16 @@
+.position{
+    float: right;
+}
+
+
+.button{
+    background-color: darkgray;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.button1{
+    background-color: rgb(95, 204, 204);
+    margin: 10px;
+    border-radius: 10px;
+}

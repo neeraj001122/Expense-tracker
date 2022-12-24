@@ -7,11 +7,11 @@ const ForgotPassword = () => {
         event.preventDefault();
         let email = enteredEmail.current.value
        try{
-       const res = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB0rMolOd8wAWaFhPKzeVwKt8CTdmtWjcM',{
+       await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB0rMolOd8wAWaFhPKzeVwKt8CTdmtWjcM',{
         requestType: "PASSWORD_RESET",
         email: email
        })
-       console.log(res)
+       alert('Check your Gmail, message sent succesfully')
        enteredEmail.current.value = '';
     }
     catch(error)

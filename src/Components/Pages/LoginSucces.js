@@ -1,18 +1,25 @@
 import React from "react";
 import classes from "./LoginSucces.module.css";
 import { useState, useRef, useEffect } from "react";
-import axios from "axios";
 import EmailVarify from "./EmailVarify";
-import { useHistory } from "react-router-dom";
 import Modal from "../UI/Modal";
+import ThemeButton from "./ThemeButton";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { postDataProfile } from "../../Store/ProfileActions";
+import { getDataProfile } from "../../Store/ProfileActions";
 const LoginSucces = () => {
-  const history = useHistory()
+  const theme = useSelector(state => state.data.theme)
   const [completeProfile, SetCompleteProfile] = useState(false);
   const [propfileCompleted, setProfileCompleted] = useState(false);
   const [nameValue, setNameValue] = useState('');
   const [URLValue, setURLValue] = useState('')
   const enteredName = useRef();
   const enteredProfileUrl=useRef();
+  const premiumSeter = useSelector(state => state.data.premiume)
+  const dispatch = useDispatch()
+
+
   const profileFormHandler = () => {
     SetCompleteProfile(true);
   };
@@ -21,55 +28,34 @@ const LoginSucces = () => {
     SetCompleteProfile(false);
   };
 
-  const effectfunction = async() => {
-    if(localStorage.getItem('tokenn') !== null)
-    {
-        setProfileCompleted(true)
-            const rss = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB0rMolOd8wAWaFhPKzeVwKt8CTdmtWjcM',{
-            idToken:localStorage.getItem('token')
-        })
-        setURLValue(rss.data.users[0].photoUrl)
-        setNameValue(rss.data.users[0].displayName)
-    }
-  };
 
   useEffect(() => {
-    effectfunction();
-  }, [])
+    dispatch(getDataProfile(setURLValue, setNameValue,setNameValue))
+  }, [dispatch])
 
 
-  const submitHandler = async(event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
-    try{
-    const res = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyB0rMolOd8wAWaFhPKzeVwKt8CTdmtWjcM',{
-     idToken:localStorage.getItem('token'),
-     displayName:enteredName.current.value,
-     photoUrl:enteredProfileUrl.current.value,
-     returnSecureToken:true	
-    })
-    localStorage.setItem('tokenn',res.data.kind)
-    setProfileCompleted(true);
-}
-catch(error){
-   alert(error.response.data.error.message)
-}
+     const obj = {
+      idToken:localStorage.getItem('token'),
+      displayName:enteredName.current.value,
+      photoUrl:enteredProfileUrl.current.value,
+      returnSecureToken:true	
+     }
+     dispatch(postDataProfile(obj,setProfileCompleted))
   };
 
-  const logoutHandler = () => {
-    history.replace('/')
-    localStorage.removeItem('token')
-    localStorage.removeItem('tokenn')
-  }
 
   return (
     <div>
-      <div className={classes.div2}>
+      <div className={theme ? classes.div3 : classes.div2}>
       <button onClick={profileFormHandler} className={classes.login}>
         {!propfileCompleted ? 'Your profile is incomplete. Complete now' : 'Your Profile is completed, enjoy new features'}
       </button>
-       <h1>Welcome to expense Tracker</h1>
+       <h1 className={theme ? classes.h31:classes.h1}>Welcome to expense Tracker</h1>
        </div>
       <div className={classes.div}>
+      {premiumSeter && <ThemeButton />}
       {completeProfile && (
         <Modal>
         <form onSubmit={submitHandler} className={classes.form}>
@@ -90,7 +76,7 @@ catch(error){
       )}
       </div>
       <div className={classes.buttondiv}>
-      <button onClick={logoutHandler}>Logout</button>
+   
       </div>
     </div>
   );

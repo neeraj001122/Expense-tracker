@@ -1,12 +1,5 @@
 .box{
-    position: relative;
-    width: 1440;
-    margin: 100px auto 0;
-    padding: 10px;
-    box-sizing: border-box;
-    /* background-color: aqua; */
-    text-align: center;
-    border-radius: 10px;
+  text-align: center;
 }
 
 .box li{
@@ -17,22 +10,26 @@
     height: 5rem;
     border-radius: 10px;
     border: 2px solid gray;
+    height: 6rem;
 }
 
 .span1{
    padding:  0 10px;
-   font-size: 3rem;
-}
+   font-size: 2.5rem;
+   max-width: 6rem;
+}   
 
 .span2{
     padding:  0 10px;
    font-size: 3rem;
    /* position: relative; left: 56rem; */
+   max-width: 6rem;
+   position: relative;
+   left: -3rem;
 }
 .span3{
     font-size: 1.5rem;
-    /* background-color: blue; */
-    width: 55rem;
+    width: 25rem;
     margin: 0;
     height: 2.5rem;
     position: relative; top: 2rem; left: 8rem;   
@@ -40,23 +37,45 @@
 
 .span4{
     font-size: larger;
-    position: relative; left: -23rem; top: -0.8rem ;
-    /* background-color: aqua; */
+    position: relative; left: -12rem; top: -0.6rem ;
     height: 1.5rem;
-    width: 30rem;
+    width: 15rem;
 }
 
 .button1{
     width: 4.5rem;
     height: 2rem;
     background-color: rgb(143, 245, 143);
-    position: relative; top: 2.3rem;
     left: 3.4rem;
     cursor: pointer;
+    position: relative;
+    top: 3rem;
+    left: 4.5rem;
 }
 .button2{
-    width: 4rem;
+    width: 4.5rem;
     height: 2rem;
     background-color: rgb(196, 102, 102);
     cursor: pointer;
 }
+
+.modal {
+    text-align: center;
+    margin-left: 5rem;
+    animation: slide-down 300ms ease-out forwards;
+  }
+    
+    @media (min-width: 300px) {
+        .modal {
+        width: 70rem;
+        left: calc(10% - 5rem);
+        position: relative;
+        }
+    }
+
+    .button{
+        background-color: rgb(223, 228, 161);
+        cursor: pointer;
+        width: 10rem;
+        border-radius: 10px;
+    }
